@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StrankaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AdministrativnaJedinica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BirackoMjesto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Sifra" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LokacijaId" Type="Int64" Nullable="false" />
+    <Property Name="Aktivno" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Lokacija" Relationship="Self.FK_BirackoMjesto_Lokacija" FromRole="BirackoMjesto" ToRole="Lokacija" />
+    <NavigationProperty Name="Glasacs" Relationship="Self.FK_Glasac_BirackoMjesto" FromRole="BirackoMjesto" ToRole="Glasac" />
+    <NavigationProperty Name="GlasoviKandidatBirackoMjestoes" Relationship="Self.FK_GlasoviKandidatBirackoMjesto_BirackoMjesto" FromRole="BirackoMjesto" ToRole="GlasoviKandidatBirackoMjesto" />
+    <NavigationProperty Name="GlasoviPolitickiSubjektBirackoMjestoes" Relationship="Self.FK_GlasoviPolitickiSubjektBirackoMjesto_BirackoMjesto" FromRole="BirackoMjesto" ToRole="GlasoviPolitickiSubjektBirackoMjesto" />
+    <NavigationProperty Name="IzboriBirackoMjestoes" Relationship="Self.FK_IzboriBirackoMjesto_BirackoMjesto" FromRole="BirackoMjesto" ToRole="IzboriBirackoMjesto" />
+    <NavigationProperty Name="UlogaNadlezosts" Relationship="Self.FK_UlogaNadlezost_BirackoMjesto" FromRole="BirackoMjesto" ToRole="UlogaNadlezost" />
+  </EntityType>
+  <EntityType Name="ClanskaKarta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="GlasacId" Type="Int64" Nullable="false" />
+    <Property Name="StrucnaSpremaId" Type="Int64" />
+    <Property Name="Zanimanje" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DatumPristupanja" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Glasac" Relationship="Self.FK_ClanskaKarta_Glasac" FromRole="ClanskaKarta" ToRole="Glasac" />
+    <NavigationProperty Name="StrucnaSprema" Relationship="Self.FK_ClanskaKarta_StrucnaSprema" FromRole="ClanskaKarta" ToRole="StrucnaSprema" />
+  </EntityType>
+  <EntityType Name="Glasac">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BirackoMjestoId" Type="Int64" Nullable="false" />
+    <Property Name="Telefon" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Napomena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Slika" Type="Binary" MaxLength="8000" FixedLength="true" />
+    <Property Name="Clan" Type="Boolean" Nullable="false" />
+    <Property Name="Aktivan" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BirackoMjesto" Relationship="Self.FK_Glasac_BirackoMjesto" FromRole="Glasac" ToRole="BirackoMjesto" />
+    <NavigationProperty Name="ClanskaKartas" Relationship="Self.FK_ClanskaKarta_Glasac" FromRole="Glasac" ToRole="ClanskaKarta" />
+    <NavigationProperty Name="IzlaznostGlasacas" Relationship="Self.FK_IzlaznostGlasaca_Glasac" FromRole="Glasac" ToRole="IzlaznostGlasaca" />
+  </EntityType>
+  <EntityType Name="GlasoviKandidatBirackoMjesto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="KandidatIzboriHijerarhijaId" Type="Int64" Nullable="false" />
+    <Property Name="BirackoMjestoId" Type="Int64" Nullable="false" />
+    <Property Name="BrojGlasova" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BirackoMjesto" Relationship="Self.FK_GlasoviKandidatBirackoMjesto_BirackoMjesto" FromRole="GlasoviKandidatBirackoMjesto" ToRole="BirackoMjesto" />
+    <NavigationProperty Name="KandidatIzboriHijerarhija" Relationship="Self.FK_GlasoviKandidatBirackoMjesto_KandidatIzboriHijerarhija" FromRole="GlasoviKandidatBirackoMjesto" ToRole="KandidatIzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="GlasoviPolitickiSubjektBirackoMjesto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="PolitickiSubjektIzboriHijerarhijaId" Type="Int64" Nullable="false" />
+    <Property Name="BirackoMjestoId" Type="Int64" Nullable="false" />
+    <Property Name="BrojGlasova" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BirackoMjesto" Relationship="Self.FK_GlasoviPolitickiSubjektBirackoMjesto_BirackoMjesto" FromRole="GlasoviPolitickiSubjektBirackoMjesto" ToRole="BirackoMjesto" />
+    <NavigationProperty Name="PolitickiSubjektIzboriHijerarhija" Relationship="Self.FK_GlasoviPolitickiSubjektBirackoMjesto_PolitickiSubjektIzboriHijerarhija" FromRole="GlasoviPolitickiSubjektBirackoMjesto" ToRole="PolitickiSubjektIzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="Hijerarhija">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="IzbornaJedinicaDijeteId" Type="Int64" Nullable="false" />
+    <Property Name="IzbornaJedinicaRoditeljId" Type="Int64" Nullable="false" />
+    <Property Name="KategorijaId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="IzbornaJedinica" Relationship="Self.FK_Hijerarhija_IzbornaJedinica" FromRole="Hijerarhija" ToRole="IzbornaJedinica" />
+    <NavigationProperty Name="IzbornaJedinica1" Relationship="Self.FK_Hijerarhija_IzbornaJedinica1" FromRole="Hijerarhija" ToRole="IzbornaJedinica" />
+    <NavigationProperty Name="Kategorija" Relationship="Self.FK_Hijerarhija_Kategorija" FromRole="Hijerarhija" ToRole="Kategorija" />
+    <NavigationProperty Name="IzboriHijerarhijas" Relationship="Self.FK_IzboriHijerarhija_Hijerarhija" FromRole="Hijerarhija" ToRole="IzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="Izbori">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="VrstaIzboraId" Type="Int64" Nullable="false" />
+    <Property Name="NivoIzboraId" Type="Int64" Nullable="false" />
+    <Property Name="DatumOdrzavanja" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="NivoIzbora" Relationship="Self.FK_Izbori_NivoIzbora" FromRole="Izbori" ToRole="NivoIzbora" />
+    <NavigationProperty Name="VrstaIzbora" Relationship="Self.FK_Izbori_VrstaIzbora" FromRole="Izbori" ToRole="VrstaIzbora" />
+    <NavigationProperty Name="IzboriBirackoMjestoes" Relationship="Self.FK_IzboriBirackoMjesto_Izbori" FromRole="Izbori" ToRole="IzboriBirackoMjesto" />
+    <NavigationProperty Name="IzboriHijerarhijas" Relationship="Self.FK_IzboriHijerarhija_Izbori" FromRole="Izbori" ToRole="IzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="IzboriBirackoMjesto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="IzboriId" Type="Int64" Nullable="false" />
+    <Property Name="BirackoMjestoId" Type="Int64" Nullable="false" />
+    <Property Name="BrojGlasaca" Type="Int32" />
+    <Property Name="IzasloGlasaca" Type="Int32" />
+    <Property Name="Napomena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BirackoMjesto" Relationship="Self.FK_IzboriBirackoMjesto_BirackoMjesto" FromRole="IzboriBirackoMjesto" ToRole="BirackoMjesto" />
+    <NavigationProperty Name="Izbori" Relationship="Self.FK_IzboriBirackoMjesto_Izbori" FromRole="IzboriBirackoMjesto" ToRole="Izbori" />
+    <NavigationProperty Name="IzlaznostGlasacas" Relationship="Self.FK_IzlaznostGlasaca_IzboriBirackoMjesto" FromRole="IzboriBirackoMjesto" ToRole="IzlaznostGlasaca" />
+  </EntityType>
+  <EntityType Name="IzboriHijerarhija">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="IzboriId" Type="Int64" Nullable="false" />
+    <Property Name="HijerarhijaId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Hijerarhija" Relationship="Self.FK_IzboriHijerarhija_Hijerarhija" FromRole="IzboriHijerarhija" ToRole="Hijerarhija" />
+    <NavigationProperty Name="Izbori" Relationship="Self.FK_IzboriHijerarhija_Izbori" FromRole="IzboriHijerarhija" ToRole="Izbori" />
+    <NavigationProperty Name="KandidatIzboriHijerarhijas" Relationship="Self.FK_KandidatIzboriHijerarhija_IzboriHijerarhija" FromRole="IzboriHijerarhija" ToRole="KandidatIzboriHijerarhija" />
+    <NavigationProperty Name="PolitickiSubjektIzboriHijerarhijas" Relationship="Self.FK_PolitickiSubjektIzboriHijerarhija_IzboriHijerarhija" FromRole="IzboriHijerarhija" ToRole="PolitickiSubjektIzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="IzbornaJedinica">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Sifra" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Hijerarhijas" Relationship="Self.FK_Hijerarhija_IzbornaJedinica" FromRole="IzbornaJedinica" ToRole="Hijerarhija" />
+    <NavigationProperty Name="Hijerarhijas1" Relationship="Self.FK_Hijerarhija_IzbornaJedinica1" FromRole="IzbornaJedinica" ToRole="Hijerarhija" />
+    <NavigationProperty Name="Lokacijas" Relationship="Self.FK_Lokacija_IzbornaJedinica" FromRole="IzbornaJedinica" ToRole="Lokacija" />
+    <NavigationProperty Name="UlogaNadlezosts" Relationship="Self.FK_UlogaNadlezost_IzbornaJedinica" FromRole="IzbornaJedinica" ToRole="UlogaNadlezost" />
+  </EntityType>
+  <EntityType Name="IzlaznostGlasaca">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="IzboriBirackoMjestoId" Type="Int64" Nullable="false" />
+    <Property Name="GlasacId" Type="Int64" Nullable="false" />
+    <Property Name="Glasao" Type="Boolean" />
+    <NavigationProperty Name="Glasac" Relationship="Self.FK_IzlaznostGlasaca_Glasac" FromRole="IzlaznostGlasaca" ToRole="Glasac" />
+    <NavigationProperty Name="IzboriBirackoMjesto" Relationship="Self.FK_IzlaznostGlasaca_IzboriBirackoMjesto" FromRole="IzlaznostGlasaca" ToRole="IzboriBirackoMjesto" />
+  </EntityType>
+  <EntityType Name="Kandidat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Telefon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Napomena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Slika" Type="Binary" MaxLength="8000" FixedLength="true" />
+    <NavigationProperty Name="KandidatIzboriHijerarhijas" Relationship="Self.FK_KandidatIzboriHijerarhija_Kandidat" FromRole="Kandidat" ToRole="KandidatIzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="KandidatIzboriHijerarhija">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="KandidatId" Type="Int64" Nullable="false" />
+    <Property Name="IzboriHijerarhijaId" Type="Int64" Nullable="false" />
+    <Property Name="RedniBroj" Type="Int32" Nullable="false" />
+    <Property Name="UkupnoGlasova" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="GlasoviKandidatBirackoMjestoes" Relationship="Self.FK_GlasoviKandidatBirackoMjesto_KandidatIzboriHijerarhija" FromRole="KandidatIzboriHijerarhija" ToRole="GlasoviKandidatBirackoMjesto" />
+    <NavigationProperty Name="IzboriHijerarhija" Relationship="Self.FK_KandidatIzboriHijerarhija_IzboriHijerarhija" FromRole="KandidatIzboriHijerarhija" ToRole="IzboriHijerarhija" />
+    <NavigationProperty Name="Kandidat" Relationship="Self.FK_KandidatIzboriHijerarhija_Kandidat" FromRole="KandidatIzboriHijerarhija" ToRole="Kandidat" />
+  </EntityType>
+  <EntityType Name="Kanton">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Sifra" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kategorija">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NivoIzboraId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Hijerarhijas" Relationship="Self.FK_Hijerarhija_Kategorija" FromRole="Kategorija" ToRole="Hijerarhija" />
+    <NavigationProperty Name="NivoIzbora" Relationship="Self.FK_Kategorija_NivoIzbora" FromRole="Kategorija" ToRole="NivoIzbora" />
+  </EntityType>
+  <EntityType Name="Korisnik">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="JMBG" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UlogaId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Uloga" Relationship="Self.FK_Korisnik_Uloga" FromRole="Korisnik" ToRole="Uloga" />
+  </EntityType>
+  <EntityType Name="Lokacija">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IzbornaJedinicaId" Type="Int64" Nullable="false" />
+    <Property Name="Aktivna" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BirackoMjestoes" Relationship="Self.FK_BirackoMjesto_Lokacija" FromRole="Lokacija" ToRole="BirackoMjesto" />
+    <NavigationProperty Name="IzbornaJedinica" Relationship="Self.FK_Lokacija_IzbornaJedinica" FromRole="Lokacija" ToRole="IzbornaJedinica" />
+    <NavigationProperty Name="UlogaNadlezosts" Relationship="Self.FK_UlogaNadlezost_Lokacija" FromRole="Lokacija" ToRole="UlogaNadlezost" />
+  </EntityType>
+  <EntityType Name="NivoIzbora">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Izboris" Relationship="Self.FK_Izbori_NivoIzbora" FromRole="NivoIzbora" ToRole="Izbori" />
+    <NavigationProperty Name="Kategorijas" Relationship="Self.FK_Kategorija_NivoIzbora" FromRole="NivoIzbora" ToRole="Kategorija" />
+  </EntityType>
+  <EntityType Name="Opcina">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Sifra" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PolitickiSubjekt">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Sifra" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Adresa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Grad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Telefon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="PolitickiSubjektIzboriHijerarhijas" Relationship="Self.FK_PolitickiSubjektIzboriHijerarhija_PolitickiSubjekt" FromRole="PolitickiSubjekt" ToRole="PolitickiSubjektIzboriHijerarhija" />
+  </EntityType>
+  <EntityType Name="PolitickiSubjektIzboriHijerarhija">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="PolitickiSubjektId" Type="Int64" Nullable="false" />
+    <Property Name="IzboriHijerarhijaId" Type="Int64" Nullable="false" />
+    <Property Name="RedniBroj" Type="Int32" Nullable="false" />
+    <Property Name="UkupnoGlasova" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="GlasoviPolitickiSubjektBirackoMjestoes" Relationship="Self.FK_GlasoviPolitickiSubjektBirackoMjesto_PolitickiSubjektIzboriHijerarhija" FromRole="PolitickiSubjektIzboriHijerarhija" ToRole="GlasoviPolitickiSubjektBirackoMjesto" />
+    <NavigationProperty Name="IzboriHijerarhija" Relationship="Self.FK_PolitickiSubjektIzboriHijerarhija_IzboriHijerarhija" FromRole="PolitickiSubjektIzboriHijerarhija" ToRole="IzboriHijerarhija" />
+    <NavigationProperty Name="PolitickiSubjekt" Relationship="Self.FK_PolitickiSubjektIzboriHijerarhija_PolitickiSubjekt" FromRole="PolitickiSubjektIzboriHijerarhija" ToRole="PolitickiSubjekt" />
+  </EntityType>
+  <EntityType Name="StrucnaSprema">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Napomena" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ClanskaKartas" Relationship="Self.FK_ClanskaKarta_StrucnaSprema" FromRole="StrucnaSprema" ToRole="ClanskaKarta" />
+  </EntityType>
+  <EntityType Name="Uloga">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Korisniks" Relationship="Self.FK_Korisnik_Uloga" FromRole="Uloga" ToRole="Korisnik" />
+    <NavigationProperty Name="UlogaNadlezosts" Relationship="Self.FK_UlogaNadlezost_Uloga" FromRole="Uloga" ToRole="UlogaNadlezost" />
+  </EntityType>
+  <EntityType Name="UlogaNadlezost">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="UlogaId" Type="Int64" Nullable="false" />
+    <Property Name="IzbornaJedinicaId" Type="Int64" />
+    <Property Name="LokacijaId" Type="Int64" />
+    <Property Name="BirackoMjestoId" Type="Int64" />
+    <NavigationProperty Name="BirackoMjesto" Relationship="Self.FK_UlogaNadlezost_BirackoMjesto" FromRole="UlogaNadlezost" ToRole="BirackoMjesto" />
+    <NavigationProperty Name="IzbornaJedinica" Relationship="Self.FK_UlogaNadlezost_IzbornaJedinica" FromRole="UlogaNadlezost" ToRole="IzbornaJedinica" />
+    <NavigationProperty Name="Lokacija" Relationship="Self.FK_UlogaNadlezost_Lokacija" FromRole="UlogaNadlezost" ToRole="Lokacija" />
+    <NavigationProperty Name="Uloga" Relationship="Self.FK_UlogaNadlezost_Uloga" FromRole="UlogaNadlezost" ToRole="Uloga" />
+  </EntityType>
+  <EntityType Name="VrstaIzbora">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Naziv" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Izboris" Relationship="Self.FK_Izbori_VrstaIzbora" FromRole="VrstaIzbora" ToRole="Izbori" />
+  </EntityType>
+  <Association Name="FK_BirackoMjesto_Lokacija">
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="1" />
+    <End Role="BirackoMjesto" Type="Self.BirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lokacija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BirackoMjesto">
+        <PropertyRef Name="LokacijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Glasac_BirackoMjesto">
+    <End Role="BirackoMjesto" Type="Self.BirackoMjesto" Multiplicity="1" />
+    <End Role="Glasac" Type="Self.Glasac" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BirackoMjesto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Glasac">
+        <PropertyRef Name="BirackoMjestoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GlasoviKandidatBirackoMjesto_BirackoMjesto">
+    <End Role="BirackoMjesto" Type="Self.BirackoMjesto" Multiplicity="1" />
+    <End Role="GlasoviKandidatBirackoMjesto" Type="Self.GlasoviKandidatBirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BirackoMjesto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GlasoviKandidatBirackoMjesto">
+        <PropertyRef Name="BirackoMjestoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GlasoviPolitickiSubjektBirackoMjesto_BirackoMjesto">
+    <End Role="BirackoMjesto" Type="Self.BirackoMjesto" Multiplicity="1" />
+    <End Role="GlasoviPolitickiSubjektBirackoMjesto" Type="Self.GlasoviPolitickiSubjektBirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BirackoMjesto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GlasoviPolitickiSubjektBirackoMjesto">
+        <PropertyRef Name="BirackoMjestoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IzboriBirackoMjesto_BirackoMjesto">
+    <End Role="BirackoMjesto" Type="Self.BirackoMjesto" Multiplicity="1" />
+    <End Role="IzboriBirackoMjesto" Type="Self.IzboriBirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BirackoMjesto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IzboriBirackoMjesto">
+        <PropertyRef Name="BirackoMjestoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UlogaNadlezost_BirackoMjesto">
+    <End Role="BirackoMjesto" Type="Self.BirackoMjesto" Multiplicity="0..1" />
+    <End Role="UlogaNadlezost" Type="Self.UlogaNadlezost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BirackoMjesto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UlogaNadlezost">
+        <PropertyRef Name="BirackoMjestoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClanskaKarta_Glasac">
+    <End Role="Glasac" Type="Self.Glasac" Multiplicity="1" />
+    <End Role="ClanskaKarta" Type="Self.ClanskaKarta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Glasac">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClanskaKarta">
+        <PropertyRef Name="GlasacId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClanskaKarta_StrucnaSprema">
+    <End Role="StrucnaSprema" Type="Self.StrucnaSprema" Multiplicity="0..1" />
+    <End Role="ClanskaKarta" Type="Self.ClanskaKarta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StrucnaSprema">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClanskaKarta">
+        <PropertyRef Name="StrucnaSpremaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IzlaznostGlasaca_Glasac">
+    <End Role="Glasac" Type="Self.Glasac" Multiplicity="1" />
+    <End Role="IzlaznostGlasaca" Type="Self.IzlaznostGlasaca" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Glasac">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IzlaznostGlasaca">
+        <PropertyRef Name="GlasacId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GlasoviKandidatBirackoMjesto_KandidatIzboriHijerarhija">
+    <End Role="KandidatIzboriHijerarhija" Type="Self.KandidatIzboriHijerarhija" Multiplicity="1" />
+    <End Role="GlasoviKandidatBirackoMjesto" Type="Self.GlasoviKandidatBirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KandidatIzboriHijerarhija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GlasoviKandidatBirackoMjesto">
+        <PropertyRef Name="KandidatIzboriHijerarhijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GlasoviPolitickiSubjektBirackoMjesto_PolitickiSubjektIzboriHijerarhija">
+    <End Role="PolitickiSubjektIzboriHijerarhija" Type="Self.PolitickiSubjektIzboriHijerarhija" Multiplicity="1" />
+    <End Role="GlasoviPolitickiSubjektBirackoMjesto" Type="Self.GlasoviPolitickiSubjektBirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PolitickiSubjektIzboriHijerarhija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GlasoviPolitickiSubjektBirackoMjesto">
+        <PropertyRef Name="PolitickiSubjektIzboriHijerarhijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hijerarhija_IzbornaJedinica">
+    <End Role="IzbornaJedinica" Type="Self.IzbornaJedinica" Multiplicity="1" />
+    <End Role="Hijerarhija" Type="Self.Hijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzbornaJedinica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hijerarhija">
+        <PropertyRef Name="IzbornaJedinicaDijeteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hijerarhija_IzbornaJedinica1">
+    <End Role="IzbornaJedinica" Type="Self.IzbornaJedinica" Multiplicity="1" />
+    <End Role="Hijerarhija" Type="Self.Hijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzbornaJedinica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hijerarhija">
+        <PropertyRef Name="IzbornaJedinicaRoditeljId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hijerarhija_Kategorija">
+    <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="1" />
+    <End Role="Hijerarhija" Type="Self.Hijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hijerarhija">
+        <PropertyRef Name="KategorijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IzboriHijerarhija_Hijerarhija">
+    <End Role="Hijerarhija" Type="Self.Hijerarhija" Multiplicity="1" />
+    <End Role="IzboriHijerarhija" Type="Self.IzboriHijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hijerarhija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IzboriHijerarhija">
+        <PropertyRef Name="HijerarhijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Izbori_NivoIzbora">
+    <End Role="NivoIzbora" Type="Self.NivoIzbora" Multiplicity="1" />
+    <End Role="Izbori" Type="Self.Izbori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NivoIzbora">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Izbori">
+        <PropertyRef Name="NivoIzboraId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Izbori_VrstaIzbora">
+    <End Role="VrstaIzbora" Type="Self.VrstaIzbora" Multiplicity="1" />
+    <End Role="Izbori" Type="Self.Izbori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VrstaIzbora">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Izbori">
+        <PropertyRef Name="VrstaIzboraId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IzboriBirackoMjesto_Izbori">
+    <End Role="Izbori" Type="Self.Izbori" Multiplicity="1" />
+    <End Role="IzboriBirackoMjesto" Type="Self.IzboriBirackoMjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Izbori">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IzboriBirackoMjesto">
+        <PropertyRef Name="IzboriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IzboriHijerarhija_Izbori">
+    <End Role="Izbori" Type="Self.Izbori" Multiplicity="1" />
+    <End Role="IzboriHijerarhija" Type="Self.IzboriHijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Izbori">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IzboriHijerarhija">
+        <PropertyRef Name="IzboriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IzlaznostGlasaca_IzboriBirackoMjesto">
+    <End Role="IzboriBirackoMjesto" Type="Self.IzboriBirackoMjesto" Multiplicity="1" />
+    <End Role="IzlaznostGlasaca" Type="Self.IzlaznostGlasaca" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzboriBirackoMjesto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="IzlaznostGlasaca">
+        <PropertyRef Name="IzboriBirackoMjestoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KandidatIzboriHijerarhija_IzboriHijerarhija">
+    <End Role="IzboriHijerarhija" Type="Self.IzboriHijerarhija" Multiplicity="1" />
+    <End Role="KandidatIzboriHijerarhija" Type="Self.KandidatIzboriHijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzboriHijerarhija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="KandidatIzboriHijerarhija">
+        <PropertyRef Name="IzboriHijerarhijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolitickiSubjektIzboriHijerarhija_IzboriHijerarhija">
+    <End Role="IzboriHijerarhija" Type="Self.IzboriHijerarhija" Multiplicity="1" />
+    <End Role="PolitickiSubjektIzboriHijerarhija" Type="Self.PolitickiSubjektIzboriHijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzboriHijerarhija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PolitickiSubjektIzboriHijerarhija">
+        <PropertyRef Name="IzboriHijerarhijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lokacija_IzbornaJedinica">
+    <End Role="IzbornaJedinica" Type="Self.IzbornaJedinica" Multiplicity="1" />
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzbornaJedinica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lokacija">
+        <PropertyRef Name="IzbornaJedinicaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UlogaNadlezost_IzbornaJedinica">
+    <End Role="IzbornaJedinica" Type="Self.IzbornaJedinica" Multiplicity="0..1" />
+    <End Role="UlogaNadlezost" Type="Self.UlogaNadlezost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IzbornaJedinica">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UlogaNadlezost">
+        <PropertyRef Name="IzbornaJedinicaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KandidatIzboriHijerarhija_Kandidat">
+    <End Role="Kandidat" Type="Self.Kandidat" Multiplicity="1" />
+    <End Role="KandidatIzboriHijerarhija" Type="Self.KandidatIzboriHijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kandidat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="KandidatIzboriHijerarhija">
+        <PropertyRef Name="KandidatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kategorija_NivoIzbora">
+    <End Role="NivoIzbora" Type="Self.NivoIzbora" Multiplicity="1" />
+    <End Role="Kategorija" Type="Self.Kategorija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NivoIzbora">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Kategorija">
+        <PropertyRef Name="NivoIzboraId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Korisnik_Uloga">
+    <End Role="Uloga" Type="Self.Uloga" Multiplicity="1" />
+    <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uloga">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Korisnik">
+        <PropertyRef Name="UlogaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UlogaNadlezost_Lokacija">
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="0..1" />
+    <End Role="UlogaNadlezost" Type="Self.UlogaNadlezost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lokacija">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UlogaNadlezost">
+        <PropertyRef Name="LokacijaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PolitickiSubjektIzboriHijerarhija_PolitickiSubjekt">
+    <End Role="PolitickiSubjekt" Type="Self.PolitickiSubjekt" Multiplicity="1" />
+    <End Role="PolitickiSubjektIzboriHijerarhija" Type="Self.PolitickiSubjektIzboriHijerarhija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PolitickiSubjekt">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PolitickiSubjektIzboriHijerarhija">
+        <PropertyRef Name="PolitickiSubjektId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UlogaNadlezost_Uloga">
+    <End Role="Uloga" Type="Self.Uloga" Multiplicity="1" />
+    <End Role="UlogaNadlezost" Type="Self.UlogaNadlezost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uloga">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UlogaNadlezost">
+        <PropertyRef Name="UlogaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StrankaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AdministrativnaJedinicas" EntityType="Self.AdministrativnaJedinica" />
+    <EntitySet Name="BirackoMjestoes" EntityType="Self.BirackoMjesto" />
+    <EntitySet Name="ClanskaKartas" EntityType="Self.ClanskaKarta" />
+    <EntitySet Name="Glasacs" EntityType="Self.Glasac" />
+    <EntitySet Name="GlasoviKandidatBirackoMjestoes" EntityType="Self.GlasoviKandidatBirackoMjesto" />
+    <EntitySet Name="GlasoviPolitickiSubjektBirackoMjestoes" EntityType="Self.GlasoviPolitickiSubjektBirackoMjesto" />
+    <EntitySet Name="Hijerarhijas" EntityType="Self.Hijerarhija" />
+    <EntitySet Name="Izboris" EntityType="Self.Izbori" />
+    <EntitySet Name="IzboriBirackoMjestoes" EntityType="Self.IzboriBirackoMjesto" />
+    <EntitySet Name="IzboriHijerarhijas" EntityType="Self.IzboriHijerarhija" />
+    <EntitySet Name="IzbornaJedinicas" EntityType="Self.IzbornaJedinica" />
+    <EntitySet Name="IzlaznostGlasacas" EntityType="Self.IzlaznostGlasaca" />
+    <EntitySet Name="Kandidats" EntityType="Self.Kandidat" />
+    <EntitySet Name="KandidatIzboriHijerarhijas" EntityType="Self.KandidatIzboriHijerarhija" />
+    <EntitySet Name="Kantons" EntityType="Self.Kanton" />
+    <EntitySet Name="Kategorijas" EntityType="Self.Kategorija" />
+    <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+    <EntitySet Name="Lokacijas" EntityType="Self.Lokacija" />
+    <EntitySet Name="NivoIzboras" EntityType="Self.NivoIzbora" />
+    <EntitySet Name="Opcinas" EntityType="Self.Opcina" />
+    <EntitySet Name="PolitickiSubjekts" EntityType="Self.PolitickiSubjekt" />
+    <EntitySet Name="PolitickiSubjektIzboriHijerarhijas" EntityType="Self.PolitickiSubjektIzboriHijerarhija" />
+    <EntitySet Name="StrucnaSpremas" EntityType="Self.StrucnaSprema" />
+    <EntitySet Name="Ulogas" EntityType="Self.Uloga" />
+    <EntitySet Name="UlogaNadlezosts" EntityType="Self.UlogaNadlezost" />
+    <EntitySet Name="VrstaIzboras" EntityType="Self.VrstaIzbora" />
+    <AssociationSet Name="FK_BirackoMjesto_Lokacija" Association="Self.FK_BirackoMjesto_Lokacija">
+      <End Role="Lokacija" EntitySet="Lokacijas" />
+      <End Role="BirackoMjesto" EntitySet="BirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Glasac_BirackoMjesto" Association="Self.FK_Glasac_BirackoMjesto">
+      <End Role="BirackoMjesto" EntitySet="BirackoMjestoes" />
+      <End Role="Glasac" EntitySet="Glasacs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GlasoviKandidatBirackoMjesto_BirackoMjesto" Association="Self.FK_GlasoviKandidatBirackoMjesto_BirackoMjesto">
+      <End Role="BirackoMjesto" EntitySet="BirackoMjestoes" />
+      <End Role="GlasoviKandidatBirackoMjesto" EntitySet="GlasoviKandidatBirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GlasoviPolitickiSubjektBirackoMjesto_BirackoMjesto" Association="Self.FK_GlasoviPolitickiSubjektBirackoMjesto_BirackoMjesto">
+      <End Role="BirackoMjesto" EntitySet="BirackoMjestoes" />
+      <End Role="GlasoviPolitickiSubjektBirackoMjesto" EntitySet="GlasoviPolitickiSubjektBirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IzboriBirackoMjesto_BirackoMjesto" Association="Self.FK_IzboriBirackoMjesto_BirackoMjesto">
+      <End Role="BirackoMjesto" EntitySet="BirackoMjestoes" />
+      <End Role="IzboriBirackoMjesto" EntitySet="IzboriBirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UlogaNadlezost_BirackoMjesto" Association="Self.FK_UlogaNadlezost_BirackoMjesto">
+      <End Role="BirackoMjesto" EntitySet="BirackoMjestoes" />
+      <End Role="UlogaNadlezost" EntitySet="UlogaNadlezosts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClanskaKarta_Glasac" Association="Self.FK_ClanskaKarta_Glasac">
+      <End Role="Glasac" EntitySet="Glasacs" />
+      <End Role="ClanskaKarta" EntitySet="ClanskaKartas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClanskaKarta_StrucnaSprema" Association="Self.FK_ClanskaKarta_StrucnaSprema">
+      <End Role="StrucnaSprema" EntitySet="StrucnaSpremas" />
+      <End Role="ClanskaKarta" EntitySet="ClanskaKartas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IzlaznostGlasaca_Glasac" Association="Self.FK_IzlaznostGlasaca_Glasac">
+      <End Role="Glasac" EntitySet="Glasacs" />
+      <End Role="IzlaznostGlasaca" EntitySet="IzlaznostGlasacas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GlasoviKandidatBirackoMjesto_KandidatIzboriHijerarhija" Association="Self.FK_GlasoviKandidatBirackoMjesto_KandidatIzboriHijerarhija">
+      <End Role="KandidatIzboriHijerarhija" EntitySet="KandidatIzboriHijerarhijas" />
+      <End Role="GlasoviKandidatBirackoMjesto" EntitySet="GlasoviKandidatBirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GlasoviPolitickiSubjektBirackoMjesto_PolitickiSubjektIzboriHijerarhija" Association="Self.FK_GlasoviPolitickiSubjektBirackoMjesto_PolitickiSubjektIzboriHijerarhija">
+      <End Role="PolitickiSubjektIzboriHijerarhija" EntitySet="PolitickiSubjektIzboriHijerarhijas" />
+      <End Role="GlasoviPolitickiSubjektBirackoMjesto" EntitySet="GlasoviPolitickiSubjektBirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hijerarhija_IzbornaJedinica" Association="Self.FK_Hijerarhija_IzbornaJedinica">
+      <End Role="IzbornaJedinica" EntitySet="IzbornaJedinicas" />
+      <End Role="Hijerarhija" EntitySet="Hijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hijerarhija_IzbornaJedinica1" Association="Self.FK_Hijerarhija_IzbornaJedinica1">
+      <End Role="IzbornaJedinica" EntitySet="IzbornaJedinicas" />
+      <End Role="Hijerarhija" EntitySet="Hijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hijerarhija_Kategorija" Association="Self.FK_Hijerarhija_Kategorija">
+      <End Role="Kategorija" EntitySet="Kategorijas" />
+      <End Role="Hijerarhija" EntitySet="Hijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IzboriHijerarhija_Hijerarhija" Association="Self.FK_IzboriHijerarhija_Hijerarhija">
+      <End Role="Hijerarhija" EntitySet="Hijerarhijas" />
+      <End Role="IzboriHijerarhija" EntitySet="IzboriHijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Izbori_NivoIzbora" Association="Self.FK_Izbori_NivoIzbora">
+      <End Role="NivoIzbora" EntitySet="NivoIzboras" />
+      <End Role="Izbori" EntitySet="Izboris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Izbori_VrstaIzbora" Association="Self.FK_Izbori_VrstaIzbora">
+      <End Role="VrstaIzbora" EntitySet="VrstaIzboras" />
+      <End Role="Izbori" EntitySet="Izboris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IzboriBirackoMjesto_Izbori" Association="Self.FK_IzboriBirackoMjesto_Izbori">
+      <End Role="Izbori" EntitySet="Izboris" />
+      <End Role="IzboriBirackoMjesto" EntitySet="IzboriBirackoMjestoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IzboriHijerarhija_Izbori" Association="Self.FK_IzboriHijerarhija_Izbori">
+      <End Role="Izbori" EntitySet="Izboris" />
+      <End Role="IzboriHijerarhija" EntitySet="IzboriHijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IzlaznostGlasaca_IzboriBirackoMjesto" Association="Self.FK_IzlaznostGlasaca_IzboriBirackoMjesto">
+      <End Role="IzboriBirackoMjesto" EntitySet="IzboriBirackoMjestoes" />
+      <End Role="IzlaznostGlasaca" EntitySet="IzlaznostGlasacas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KandidatIzboriHijerarhija_IzboriHijerarhija" Association="Self.FK_KandidatIzboriHijerarhija_IzboriHijerarhija">
+      <End Role="IzboriHijerarhija" EntitySet="IzboriHijerarhijas" />
+      <End Role="KandidatIzboriHijerarhija" EntitySet="KandidatIzboriHijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolitickiSubjektIzboriHijerarhija_IzboriHijerarhija" Association="Self.FK_PolitickiSubjektIzboriHijerarhija_IzboriHijerarhija">
+      <End Role="IzboriHijerarhija" EntitySet="IzboriHijerarhijas" />
+      <End Role="PolitickiSubjektIzboriHijerarhija" EntitySet="PolitickiSubjektIzboriHijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lokacija_IzbornaJedinica" Association="Self.FK_Lokacija_IzbornaJedinica">
+      <End Role="IzbornaJedinica" EntitySet="IzbornaJedinicas" />
+      <End Role="Lokacija" EntitySet="Lokacijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UlogaNadlezost_IzbornaJedinica" Association="Self.FK_UlogaNadlezost_IzbornaJedinica">
+      <End Role="IzbornaJedinica" EntitySet="IzbornaJedinicas" />
+      <End Role="UlogaNadlezost" EntitySet="UlogaNadlezosts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KandidatIzboriHijerarhija_Kandidat" Association="Self.FK_KandidatIzboriHijerarhija_Kandidat">
+      <End Role="Kandidat" EntitySet="Kandidats" />
+      <End Role="KandidatIzboriHijerarhija" EntitySet="KandidatIzboriHijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kategorija_NivoIzbora" Association="Self.FK_Kategorija_NivoIzbora">
+      <End Role="NivoIzbora" EntitySet="NivoIzboras" />
+      <End Role="Kategorija" EntitySet="Kategorijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Korisnik_Uloga" Association="Self.FK_Korisnik_Uloga">
+      <End Role="Uloga" EntitySet="Ulogas" />
+      <End Role="Korisnik" EntitySet="Korisniks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UlogaNadlezost_Lokacija" Association="Self.FK_UlogaNadlezost_Lokacija">
+      <End Role="Lokacija" EntitySet="Lokacijas" />
+      <End Role="UlogaNadlezost" EntitySet="UlogaNadlezosts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PolitickiSubjektIzboriHijerarhija_PolitickiSubjekt" Association="Self.FK_PolitickiSubjektIzboriHijerarhija_PolitickiSubjekt">
+      <End Role="PolitickiSubjekt" EntitySet="PolitickiSubjekts" />
+      <End Role="PolitickiSubjektIzboriHijerarhija" EntitySet="PolitickiSubjektIzboriHijerarhijas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UlogaNadlezost_Uloga" Association="Self.FK_UlogaNadlezost_Uloga">
+      <End Role="Uloga" EntitySet="Ulogas" />
+      <End Role="UlogaNadlezost" EntitySet="UlogaNadlezosts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StrankaModelStoreContainer" CdmEntityContainer="StrankaEntities">
+    <EntitySetMapping Name="AdministrativnaJedinicas">
+      <EntityTypeMapping TypeName="StrankaModel.AdministrativnaJedinica">
+        <MappingFragment StoreEntitySet="AdministrativnaJedinica">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BirackoMjestoes">
+      <EntityTypeMapping TypeName="StrankaModel.BirackoMjesto">
+        <MappingFragment StoreEntitySet="BirackoMjesto">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="LokacijaId" ColumnName="LokacijaId" />
+          <ScalarProperty Name="Aktivno" ColumnName="Aktivno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClanskaKartas">
+      <EntityTypeMapping TypeName="StrankaModel.ClanskaKarta">
+        <MappingFragment StoreEntitySet="ClanskaKarta">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GlasacId" ColumnName="GlasacId" />
+          <ScalarProperty Name="StrucnaSpremaId" ColumnName="StrucnaSpremaId" />
+          <ScalarProperty Name="Zanimanje" ColumnName="Zanimanje" />
+          <ScalarProperty Name="DatumPristupanja" ColumnName="DatumPristupanja" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Glasacs">
+      <EntityTypeMapping TypeName="StrankaModel.Glasac">
+        <MappingFragment StoreEntitySet="Glasac">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="BirackoMjestoId" ColumnName="BirackoMjestoId" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+          <ScalarProperty Name="Clan" ColumnName="Clan" />
+          <ScalarProperty Name="Aktivan" ColumnName="Aktivan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GlasoviKandidatBirackoMjestoes">
+      <EntityTypeMapping TypeName="StrankaModel.GlasoviKandidatBirackoMjesto">
+        <MappingFragment StoreEntitySet="GlasoviKandidatBirackoMjesto">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KandidatIzboriHijerarhijaId" ColumnName="KandidatIzboriHijerarhijaId" />
+          <ScalarProperty Name="BirackoMjestoId" ColumnName="BirackoMjestoId" />
+          <ScalarProperty Name="BrojGlasova" ColumnName="BrojGlasova" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GlasoviPolitickiSubjektBirackoMjestoes">
+      <EntityTypeMapping TypeName="StrankaModel.GlasoviPolitickiSubjektBirackoMjesto">
+        <MappingFragment StoreEntitySet="GlasoviPolitickiSubjektBirackoMjesto">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PolitickiSubjektIzboriHijerarhijaId" ColumnName="PolitickiSubjektIzboriHijerarhijaId" />
+          <ScalarProperty Name="BirackoMjestoId" ColumnName="BirackoMjestoId" />
+          <ScalarProperty Name="BrojGlasova" ColumnName="BrojGlasova" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hijerarhijas">
+      <EntityTypeMapping TypeName="StrankaModel.Hijerarhija">
+        <MappingFragment StoreEntitySet="Hijerarhija">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IzbornaJedinicaDijeteId" ColumnName="IzbornaJedinicaDijeteId" />
+          <ScalarProperty Name="IzbornaJedinicaRoditeljId" ColumnName="IzbornaJedinicaRoditeljId" />
+          <ScalarProperty Name="KategorijaId" ColumnName="KategorijaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Izboris">
+      <EntityTypeMapping TypeName="StrankaModel.Izbori">
+        <MappingFragment StoreEntitySet="Izbori">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="VrstaIzboraId" ColumnName="VrstaIzboraId" />
+          <ScalarProperty Name="NivoIzboraId" ColumnName="NivoIzboraId" />
+          <ScalarProperty Name="DatumOdrzavanja" ColumnName="DatumOdrzavanja" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IzboriBirackoMjestoes">
+      <EntityTypeMapping TypeName="StrankaModel.IzboriBirackoMjesto">
+        <MappingFragment StoreEntitySet="IzboriBirackoMjesto">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IzboriId" ColumnName="IzboriId" />
+          <ScalarProperty Name="BirackoMjestoId" ColumnName="BirackoMjestoId" />
+          <ScalarProperty Name="BrojGlasaca" ColumnName="BrojGlasaca" />
+          <ScalarProperty Name="IzasloGlasaca" ColumnName="IzasloGlasaca" />
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IzboriHijerarhijas">
+      <EntityTypeMapping TypeName="StrankaModel.IzboriHijerarhija">
+        <MappingFragment StoreEntitySet="IzboriHijerarhija">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IzboriId" ColumnName="IzboriId" />
+          <ScalarProperty Name="HijerarhijaId" ColumnName="HijerarhijaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IzbornaJedinicas">
+      <EntityTypeMapping TypeName="StrankaModel.IzbornaJedinica">
+        <MappingFragment StoreEntitySet="IzbornaJedinica">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IzlaznostGlasacas">
+      <EntityTypeMapping TypeName="StrankaModel.IzlaznostGlasaca">
+        <MappingFragment StoreEntitySet="IzlaznostGlasaca">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IzboriBirackoMjestoId" ColumnName="IzboriBirackoMjestoId" />
+          <ScalarProperty Name="GlasacId" ColumnName="GlasacId" />
+          <ScalarProperty Name="Glasao" ColumnName="Glasao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kandidats">
+      <EntityTypeMapping TypeName="StrankaModel.Kandidat">
+        <MappingFragment StoreEntitySet="Kandidat">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+          <ScalarProperty Name="Slika" ColumnName="Slika" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KandidatIzboriHijerarhijas">
+      <EntityTypeMapping TypeName="StrankaModel.KandidatIzboriHijerarhija">
+        <MappingFragment StoreEntitySet="KandidatIzboriHijerarhija">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KandidatId" ColumnName="KandidatId" />
+          <ScalarProperty Name="IzboriHijerarhijaId" ColumnName="IzboriHijerarhijaId" />
+          <ScalarProperty Name="RedniBroj" ColumnName="RedniBroj" />
+          <ScalarProperty Name="UkupnoGlasova" ColumnName="UkupnoGlasova" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kantons">
+      <EntityTypeMapping TypeName="StrankaModel.Kanton">
+        <MappingFragment StoreEntitySet="Kanton">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kategorijas">
+      <EntityTypeMapping TypeName="StrankaModel.Kategorija">
+        <MappingFragment StoreEntitySet="Kategorija">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="NivoIzboraId" ColumnName="NivoIzboraId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Korisniks">
+      <EntityTypeMapping TypeName="StrankaModel.Korisnik">
+        <MappingFragment StoreEntitySet="Korisnik">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="UlogaId" ColumnName="UlogaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lokacijas">
+      <EntityTypeMapping TypeName="StrankaModel.Lokacija">
+        <MappingFragment StoreEntitySet="Lokacija">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="IzbornaJedinicaId" ColumnName="IzbornaJedinicaId" />
+          <ScalarProperty Name="Aktivna" ColumnName="Aktivna" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NivoIzboras">
+      <EntityTypeMapping TypeName="StrankaModel.NivoIzbora">
+        <MappingFragment StoreEntitySet="NivoIzbora">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Opcinas">
+      <EntityTypeMapping TypeName="StrankaModel.Opcina">
+        <MappingFragment StoreEntitySet="Opcina">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PolitickiSubjekts">
+      <EntityTypeMapping TypeName="StrankaModel.PolitickiSubjekt">
+        <MappingFragment StoreEntitySet="PolitickiSubjekt">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sifra" ColumnName="Sifra" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+          <ScalarProperty Name="Grad" ColumnName="Grad" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PolitickiSubjektIzboriHijerarhijas">
+      <EntityTypeMapping TypeName="StrankaModel.PolitickiSubjektIzboriHijerarhija">
+        <MappingFragment StoreEntitySet="PolitickiSubjektIzboriHijerarhija">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PolitickiSubjektId" ColumnName="PolitickiSubjektId" />
+          <ScalarProperty Name="IzboriHijerarhijaId" ColumnName="IzboriHijerarhijaId" />
+          <ScalarProperty Name="RedniBroj" ColumnName="RedniBroj" />
+          <ScalarProperty Name="UkupnoGlasova" ColumnName="UkupnoGlasova" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StrucnaSpremas">
+      <EntityTypeMapping TypeName="StrankaModel.StrucnaSprema">
+        <MappingFragment StoreEntitySet="StrucnaSprema">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ulogas">
+      <EntityTypeMapping TypeName="StrankaModel.Uloga">
+        <MappingFragment StoreEntitySet="Uloga">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UlogaNadlezosts">
+      <EntityTypeMapping TypeName="StrankaModel.UlogaNadlezost">
+        <MappingFragment StoreEntitySet="UlogaNadlezost">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UlogaId" ColumnName="UlogaId" />
+          <ScalarProperty Name="IzbornaJedinicaId" ColumnName="IzbornaJedinicaId" />
+          <ScalarProperty Name="LokacijaId" ColumnName="LokacijaId" />
+          <ScalarProperty Name="BirackoMjestoId" ColumnName="BirackoMjestoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VrstaIzboras">
+      <EntityTypeMapping TypeName="StrankaModel.VrstaIzbora">
+        <MappingFragment StoreEntitySet="VrstaIzbora">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
