@@ -1,124 +1,79 @@
-﻿using Stranka.Entities;
-using Stranka.Services;
-using System;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Stranka.Services.Common;
+using Stranka.Services.Entities;
+using Stranka.Services.Implementations;
+using Stranka.Services.Interfaces;
 
 namespace Stranka.Controllers
 {
-    [Authorize]
-    public class PolitickiSubjektController : ApiController
+    [Route("api/[controller]")]
+    public class PolitickiSubjektController : Controller
     {
-        PolitickiSubjektService service = new PolitickiSubjektService();
+        private ConfigurationModel _configuration;
+        private IPolitickiSubjektService _service;
 
-        // GET api/vrstaizbora
-        public async Task<IHttpActionResult> Get()
+        public PolitickiSubjektController(IOptions<ConfigurationModel> configuration)
         {
-            try
-            {
-                var result = await service.GetAll();
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            _configuration = configuration.Value;
+            _service = new PolitickiSubjektService(_configuration);
         }
 
-        // GET api/vrstaizbora/5
-        public async Task<IHttpActionResult> Get(int id)
+        [HttpGet("all")]
+        public IActionResult GetAll()
         {
-            try
-            {
-                var result = await service.Get(id);
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            List<PolitickiSubjekt> politicalSubjects = _service.GetAllPoliticalSubjects();
+            return Ok(politicalSubjects);
         }
 
-        // POST api/vrstaizbora
-        public async Task<IHttpActionResult> Post([FromBody]PolitickiSubjekt politickiSubjekt)
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
         {
-            try
-            {
-                var result = await service.Add(politickiSubjekt);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            PolitickiSubjekt politicalSubject = _service.GetPoliticalSubject(id);
+            return Ok(politicalSubject);
         }
 
-        // PUT api/vrstaizbora/5
-        public async Task<IHttpActionResult> Put([FromBody]PolitickiSubjekt politickiSubjekt)
+        [HttpPost()]
+        public IActionResult Post([FromBody] PolitickiSubjekt politicalSubject)
         {
-            try
-            {
-                var result = await service.Update(politickiSubjekt);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            long insertedId = _service.AddPoliticalSubject(politicalSubject);
+            return Ok(insertedId);
         }
 
-        // DELETE api/vrstaizbora/5
-        public async Task<IHttpActionResult> Delete([FromBody]PolitickiSubjekt politickiSubjekt)
+        [HttpPut()]
+        public IActionResult Put([FromBody] PolitickiSubjekt politicalSubject)
         {
-            try
-            {
-                var result = await service.Delete(politickiSubjekt);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
+            _service.UpdatePoliticalSubject(politicalSubject);
+            return Ok();
+        }
 
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            _service.DeletePoliticalSubject(id);
+            return Ok();
+        }
+
+        [HttpGet("votesByPollingStations")]
+        public IActionResult Get([FromQuery] long politicalSubjectId, [FromQuery] long electionsId, [FromQuery] long constituencyId, [FromQuery] long categoryId, [FromQuery] long pollingStationId)
+        {
+            List<GlasoviPolitickiSubjekt> votes = _service.GetVotesByPoolingStation(politicalSubjectId, electionsId, constituencyId, categoryId, pollingStationId);
+            return Ok(votes);
+        }
+
+        [HttpGet("votesByConstituency")]
+        public IActionResult Get([FromQuery] long politicalSubjectId, [FromQuery] long electionsId, [FromQuery] long constituencyId, [FromQuery] long categoryId)
+        {
+            List<GlasoviPolitickiSubjekt> votes = _service.GetVotesByConstituency(politicalSubjectId, electionsId, constituencyId, categoryId);
+            return Ok(votes);
+        }
+
+        [HttpPut("votes")]
+        public IActionResult Put([FromBody] GlasoviPolitickiSubjekt votes)
+        {
+            _service.UpdateVotesOfPoliticalSubject(votes);
+            return Ok();
         }
     }
 }

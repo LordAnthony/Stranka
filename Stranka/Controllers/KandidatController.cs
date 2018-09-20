@@ -1,124 +1,79 @@
-﻿using Stranka.Entities;
-using Stranka.Services;
-using System;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Stranka.Services.Common;
+using Stranka.Services.Entities;
+using Stranka.Services.Implementations;
+using Stranka.Services.Interfaces;
 
 namespace Stranka.Controllers
 {
-    [Authorize]
-    public class KandidatController : ApiController
+    [Route("api/[controller]")]
+    public class KandidatController : Controller
     {
-        KandidatService service = new KandidatService();
+        private ConfigurationModel _configuration;
+        private IKandidatService _service;
 
-        // GET api/vrstaizbora
-        public async Task<IHttpActionResult> Get()
+        public KandidatController(IOptions<ConfigurationModel> configuration)
         {
-            try
-            {
-                var result = await service.GetAll();
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            _configuration = configuration.Value;
+            _service = new KandidatService(_configuration);
         }
 
-        // GET api/vrstaizbora/5
-        public async Task<IHttpActionResult> Get(int id)
+        [HttpGet("all")]
+        public IActionResult GetAll()
         {
-            try
-            {
-                var result = await service.Get(id);
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            List<Kandidat> candidates = _service.GetAllCandidates();
+            return Ok(candidates);
         }
 
-        // POST api/vrstaizbora
-        public async Task<IHttpActionResult> Post([FromBody]Kandidat kandidat)
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
         {
-            try
-            {
-                var result = await service.Add(kandidat);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            Kandidat candidate = _service.GetCandidate(id);
+            return Ok(candidate);
         }
 
-        // PUT api/vrstaizbora/5
-        public async Task<IHttpActionResult> Put([FromBody]Kandidat kandidat)
+        [HttpPost()]
+        public IActionResult Post([FromBody] Kandidat candidate)
         {
-            try
-            {
-                var result = await service.Update(kandidat);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            long insertedId = _service.AddCandidate(candidate);
+            return Ok(insertedId);
         }
 
-        // DELETE api/vrstaizbora/5
-        public async Task<IHttpActionResult> Delete([FromBody]Kandidat kandidat)
+        [HttpPut()]
+        public IActionResult Put([FromBody] Kandidat candidate)
         {
-            try
-            {
-                var result = await service.Delete(kandidat);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
+           _service.UpdateCandidate(candidate);
+            return Ok();
+        }
 
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
+        {
+            _service.DeleteCandidate(id);
+            return Ok();
+        }
+
+        [HttpGet("votesByPollingStations")]
+        public IActionResult Get([FromQuery] long candidateId, [FromQuery] long electionsId, [FromQuery] long pollingStationId)
+        {
+            List<GlasoviKandidat> votes = _service.GetVotesByPoolingStation(candidateId, electionsId, pollingStationId);
+            return Ok(votes);
+        }
+
+        [HttpGet("allVotes")]
+        public IActionResult Get([FromQuery] long candidateId, [FromQuery] long electionsId)
+        {
+            List<GlasoviKandidat> votes = _service.GetAllVotes(candidateId, electionsId);
+            return Ok(votes);
+        }
+
+        [HttpPut("votes")]
+        public IActionResult Put([FromBody] GlasoviKandidat votes)
+        {
+            _service.UpdateVotesOfCandidate(votes);
+            return Ok();
         }
     }
 }

@@ -1,124 +1,38 @@
-﻿using Stranka.Entities;
-using Stranka.Services;
-using System;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Stranka.Services.Common;
+using Stranka.Services.Entities;
+using Stranka.Services.Implementations;
+using Stranka.Services.Interfaces;
 
 namespace Stranka.Controllers
 {
-    [Authorize]
-    public class IzboriController : ApiController
+    [Route("api/[controller]")]
+    public class IzboriController : Controller
     {
-        IzboriService service = new IzboriService();
+        private ConfigurationModel _configuration;
+        private IIzboriService _service;
 
-        // GET api/vrstaizbora
-        public async Task<IHttpActionResult> Get()
+        public IzboriController(IOptions<ConfigurationModel> configuration)
         {
-            try
-            {
-                var result = await service.GetAll();
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            _configuration = configuration.Value;
+            _service = new IzboriService(_configuration);
         }
 
-        // GET api/vrstaizbora/5
-        public async Task<IHttpActionResult> Get(int id)
+        [HttpGet("all")]
+        public IActionResult GetAll()
         {
-            try
-            {
-                var result = await service.Get(id);
-                if (result != null)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            List<Izbori> candidates = _service.GetAllElections();
+            return Ok(candidates);
         }
 
-        // POST api/vrstaizbora
-        public async Task<IHttpActionResult> Post([FromBody]Izbori izbori)
+
+        [HttpPost()]
+        public IActionResult Post([FromBody] Izbori elections)
         {
-            try
-            {
-                var result = await service.Add(izbori);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
-        }
-
-        // PUT api/vrstaizbora/5
-        public async Task<IHttpActionResult> Put([FromBody]Izbori izbori)
-        {
-            try
-            {
-                var result = await service.Update(izbori);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
-        }
-
-        // DELETE api/vrstaizbora/5
-        public async Task<IHttpActionResult> Delete([FromBody]Izbori izbori)
-        {
-            try
-            {
-                var result = await service.Delete(izbori);
-                if (result != 0)
-                {
-                    return Ok(result);
-                }
-                else
-                {
-                    return NotFound();
-                }
-
-            }
-            catch (Exception)
-            {
-                return NotFound();
-            }
+            long insertedId = _service.AddElections(elections);
+            return Ok(insertedId);
         }
     }
 }
