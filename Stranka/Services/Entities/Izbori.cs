@@ -6,11 +6,11 @@ namespace Stranka.Services.Entities
 {
     public class Izbori
     {
-        public long Id { get; set; }
-        public long VrstaIzboraId { get; set; }
-        public string VrstaIzboraNaziv { get; set; }
-        public long NivoIzboraId { get; set; }
-        public string NivoIzboraNaziv { get; set; }
-        public DateTime DatumOdrzavanja { get; set; }
+        public long id { get; set; }
+        public long vrstaIzboraId { get; set; }
+        public string vrstaIzboraNaziv { get; set; }
+        public long nivoIzboraId { get; set; }
+        public string nivoIzboraNaziv { get; set; }
+        public DateTime datumOdrzavanja { get; set; }
     }
 }

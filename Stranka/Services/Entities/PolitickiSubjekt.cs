@@ -7,11 +7,11 @@ namespace Stranka.Services.Entities
 {
     public class PolitickiSubjekt
     {
-        public long Id { get; set; }
-        public string Sifra { get; set; }
-        public string Naziv { get; set; }
-        public string Adresa { get; set; }
-        public string Grad { get; set; }
-        public string Telefon { get; set; }
+        public long id { get; set; }
+        public string sifra { get; set; }
+        public string naziv { get; set; }
+        public string adresa { get; set; }
+        public string grad { get; set; }
+        public string telefon { get; set; }
     }
 }

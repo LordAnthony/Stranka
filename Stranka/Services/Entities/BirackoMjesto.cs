@@ -7,10 +7,10 @@ namespace Stranka.Services.Entities
 {
     public class BirackoMjesto
     {
-        public long Id { get; set; }
-        public string Sifra { get; set; }
-        public string Naziv { get; set; }
-        public long LokacijaId { get; set; }
-        public string LokacijaNaziv { get; set; }
+        public long id { get; set; }
+        public string sifra { get; set; }
+        public string naziv { get; set; }
+        public long lokacijaId { get; set; }
+        public string lokacijaNaziv { get; set; }
     }
 }

@@ -7,5 +7,6 @@ namespace Stranka.Services.Interfaces
     {
         long AddElections(Izbori elections);
         List<Izbori> GetAllElections();
+        List<Kategorija> GetCategoriesForElections(long electionsId);
     }
 }

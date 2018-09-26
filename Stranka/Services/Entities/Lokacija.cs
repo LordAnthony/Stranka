@@ -7,10 +7,10 @@ namespace Stranka.Services.Entities
 {
     public class Lokacija
     {
-        public long Id { get; set; }
-        public string Naziv { get; set; }
-        public string Adresa { get; set; }
-        public long IzbornaJedinicaId { get; set; }
-        public string IzbornaJedinicaNaziv { get; set; }
+        public long id { get; set; }
+        public string naziv { get; set; }
+        public string adresa { get; set; }
+        public long izbornaJedinicaId { get; set; }
+        public string izbornaJedinicaNaziv { get; set; }
     }
 }

@@ -7,11 +7,11 @@ namespace Stranka.Services.Entities
 {
     public class Kandidat
     {
-        public long Id { get; set; }
-        public string ImePrezime { get; set; }
-        public string JMBG { get; set; }
-        public string Adresa { get; set; }
-        public string Telefon { get; set; }
-        public string Email { get; set; }
+        public long id { get; set; }
+        public string imePrezime { get; set; }
+        public string jmbg { get; set; }
+        public string adresa { get; set; }
+        public string telefon { get; set; }
+        public string email { get; set; }
     }
 }

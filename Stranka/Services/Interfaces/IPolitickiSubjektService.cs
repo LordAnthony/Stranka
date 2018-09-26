@@ -10,8 +10,8 @@ namespace Stranka.Services.Interfaces
         List<PolitickiSubjekt> GetAllPoliticalSubjects();
         void UpdatePoliticalSubject(PolitickiSubjekt politickiSubjekt);
         void DeletePoliticalSubject(long id);
-        List<GlasoviPolitickiSubjekt> GetVotesByPoolingStation(long politicalSubjectId, long electionsId, long constituencyId, long categoryId, long pollingStationId);
-        List<GlasoviPolitickiSubjekt> GetVotesByConstituency(long politicalSubjectId, long electionsId, long constituencyId, long categoryId);
+        List<GlasoviPolitickiSubjekt> GetVotesByPollingStation(long electionsId, long categoryId, long pollingStationId);
+        List<GlasoviPolitickiSubjekt> GetVotesByPoliticalSubject(long electionsId, long categoryId, long politicalSubjectId);
         void UpdateVotesOfPoliticalSubject(GlasoviPolitickiSubjekt votes);
     }
 }

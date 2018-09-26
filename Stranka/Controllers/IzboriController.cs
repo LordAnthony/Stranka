@@ -34,5 +34,13 @@ namespace Stranka.Controllers
             long insertedId = _service.AddElections(elections);
             return Ok(insertedId);
         }
+
+        [HttpGet("categories")]
+        public IActionResult GetCategories([FromQuery] long electionsId)
+        {
+            List<Kategorija> categories = _service.GetCategoriesForElections(electionsId);
+            return Ok(categories);
+        }
+
     }
 }

@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Stranka.Services.Entities
 {
-    public class Kanton
+    public class Kategorija
     {
         public long id { get; set; }
-        public string sifra { get; set; }
         public string naziv { get; set; }
     }
 }

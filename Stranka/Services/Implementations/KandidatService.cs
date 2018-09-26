@@ -30,11 +30,11 @@ namespace Stranka.Services.Implementations
                     {
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
-                        repository.AddParameterInList("@ImePrezime", kandidat.ImePrezime, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@JMBG", kandidat.JMBG, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@Adresa", kandidat.Adresa, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@Telefon", kandidat.Telefon, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@Email", kandidat.Email, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@ImePrezime", kandidat.imePrezime, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@JMBG", kandidat.jmbg, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Adresa", kandidat.adresa, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Telefon", kandidat.telefon, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Email", kandidat.email, SqlDbType.Text, ref parameters);
                         SqlDataReader dataReader = repository.ExecuteProcedure(Constants.ADD_CANDIDATE, parameters);
                         long insertedId = DataReaderConverter.ToBigInt(dataReader);
                         dataReader.Close();
@@ -111,12 +111,12 @@ namespace Stranka.Services.Implementations
                     {
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
-                        repository.AddParameterInList("@Id", kandidat.Id, SqlDbType.BigInt, ref parameters);
-                        repository.AddParameterInList("@ImePrezime", kandidat.ImePrezime, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@JMBG", kandidat.JMBG, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@Adresa", kandidat.Adresa, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@Telefon", kandidat.Telefon, SqlDbType.Text, ref parameters);
-                        repository.AddParameterInList("@Email", kandidat.Email, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Id", kandidat.id, SqlDbType.BigInt, ref parameters);
+                        repository.AddParameterInList("@ImePrezime", kandidat.imePrezime, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@JMBG", kandidat.jmbg, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Adresa", kandidat.adresa, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Telefon", kandidat.telefon, SqlDbType.Text, ref parameters);
+                        repository.AddParameterInList("@Email", kandidat.email, SqlDbType.Text, ref parameters);
                         SqlDataReader dataReader = repository.ExecuteProcedure(Constants.UPDATE_CANDIDATE, parameters);
                         dataReader.Close();
                         transaction.Commit();
@@ -154,7 +154,7 @@ namespace Stranka.Services.Implementations
             }
         }
 
-        public List<GlasoviKandidat> GetVotesByPoolingStation(long candidateId, long electionsId, long pollingStationId)
+        public List<GlasoviKandidat> GetVotesByPoolingStation(long electionsId, long categoryId, long pollingStationId)
         {
             try
             {
@@ -166,10 +166,10 @@ namespace Stranka.Services.Implementations
                     {
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
-                        repository.AddParameterInList("@KandidatId", candidateId, SqlDbType.BigInt, ref parameters);
                         repository.AddParameterInList("@IzboriId", electionsId, SqlDbType.BigInt, ref parameters);
+                        repository.AddParameterInList("@KategorijaId", categoryId, SqlDbType.BigInt, ref parameters);
                         repository.AddParameterInList("@BirackoMjestoId", pollingStationId, SqlDbType.BigInt, ref parameters);
-                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_VOTES_OF_CANDIDATE_BY_POLLINGSTATION, parameters);
+                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_CANDIDATES_VOTES_BY_POLLINGSTATION, parameters);
                         List<GlasoviKandidat> votes = DataReaderConverter.ToList<GlasoviKandidat>(dataReader);
                         dataReader.Close();
                         transaction.Commit();
@@ -183,7 +183,7 @@ namespace Stranka.Services.Implementations
             }
         }
 
-        public List<GlasoviKandidat> GetAllVotes(long candidateId, long electionsId)
+        public List<GlasoviKandidat> GetVotesByCandidate(long electionsId, long categoryId, long candidateId)
         {
             try
             {
@@ -195,9 +195,10 @@ namespace Stranka.Services.Implementations
                     {
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
-                        repository.AddParameterInList("@KandidatId", candidateId, SqlDbType.BigInt, ref parameters);
                         repository.AddParameterInList("@IzboriId", electionsId, SqlDbType.BigInt, ref parameters);
-                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_VOTES_OF_CANDIDATE, parameters);
+                        repository.AddParameterInList("@KategorijaId", categoryId, SqlDbType.BigInt, ref parameters);
+                        repository.AddParameterInList("@KandidatId", candidateId, SqlDbType.BigInt, ref parameters);
+                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_CANDIDATE_VOTES, parameters);
                         List<GlasoviKandidat> votes = DataReaderConverter.ToList<GlasoviKandidat>(dataReader);
                         dataReader.Close();
                         transaction.Commit();
@@ -224,8 +225,8 @@ namespace Stranka.Services.Implementations
                     {
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
-                        repository.AddParameterInList("@Id", votes.Id, SqlDbType.BigInt, ref parameters);
-                        repository.AddParameterInList("@BrojGlasova", votes.KandidatId, SqlDbType.Int, ref parameters);
+                        repository.AddParameterInList("@Id", votes.id, SqlDbType.BigInt, ref parameters);
+                        repository.AddParameterInList("@BrojGlasova", votes.kandidatId, SqlDbType.Int, ref parameters);
                         SqlDataReader dataReader = repository.ExecuteProcedure(Constants.UPDATE_NUMBER_OF_VOTES_CANDIDATE, parameters);
                         dataReader.Close();
                         transaction.Commit();

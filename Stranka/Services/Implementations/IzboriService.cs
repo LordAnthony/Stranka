@@ -8,7 +8,7 @@ using Stranka.Services.Interfaces;
 
 namespace Stranka.Services.Implementations
 {
-    public class IzboriService: IIzboriService
+    public class IzboriService : IIzboriService
     {
         private ConfigurationModel _configuration;
         public IzboriService(ConfigurationModel configuration)
@@ -52,14 +52,41 @@ namespace Stranka.Services.Implementations
                     {
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
-                        repository.AddParameterInList("@VrstaIzboraId", elections.VrstaIzboraId, SqlDbType.BigInt, ref parameters);
-                        repository.AddParameterInList("@NivoIzboraId", elections.NivoIzboraId, SqlDbType.BigInt, ref parameters);
-                        repository.AddParameterInList("@DatumOdrzavanja", elections.DatumOdrzavanja.Date, SqlDbType.Date, ref parameters);
+                        repository.AddParameterInList("@VrstaIzboraId", elections.vrstaIzboraId, SqlDbType.BigInt, ref parameters);
+                        repository.AddParameterInList("@NivoIzboraId", elections.nivoIzboraId, SqlDbType.BigInt, ref parameters);
+                        repository.AddParameterInList("@DatumOdrzavanja", elections.datumOdrzavanja, SqlDbType.Date, ref parameters);
                         SqlDataReader dataReader = repository.ExecuteProcedure(Constants.ADD_ELECTIONS, parameters);
                         long insertedId = DataReaderConverter.ToBigInt(dataReader);
                         dataReader.Close();
                         transaction.Commit();
                         return insertedId;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Kategorija> GetCategoriesForElections(long electionsId)
+        {
+            try
+            {
+                string connectionString = ConnectionStringHelper.GetConnectionString(_configuration);
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        ExecutorService repository = new ExecutorService(connection, transaction);
+                        List<SqlParameter> parameters = new List<SqlParameter>();
+                        repository.AddParameterInList("@IzboriId", electionsId, SqlDbType.BigInt, ref parameters);
+                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_CATEGORIES_BY_ELECTIONS, parameters);
+                        List<Kategorija> categories = DataReaderConverter.ToList<Kategorija>(dataReader);
+                        dataReader.Close();
+                        transaction.Commit();
+                        return categories;
                     }
                 }
             }
