@@ -19,3 +19,4 @@ C:\Users\MILICE_T\Desktop\IS stranka\Stranka\Stranka\obj\Debug\netcoreapp2.0\Str
 C:\Users\MILICE_T\Desktop\IS stranka\Stranka\Stranka\obj\Debug\netcoreapp2.0\Stranka.AssemblyInfo.cs
 C:\Users\MILICE_T\Desktop\IS stranka\Stranka\Stranka\obj\Debug\netcoreapp2.0\Stranka.dll
 C:\Users\MILICE_T\Desktop\IS stranka\Stranka\Stranka\obj\Debug\netcoreapp2.0\Stranka.pdb
+C:\Users\MILICE_T\Desktop\IS stranka\Stranka\Stranka\obj\Debug\netcoreapp2.0\Stranka.csprojResolveAssemblyReference.cache

@@ -55,7 +55,7 @@ namespace Stranka.Controllers
             return Ok();
         }
 
-        [HttpGet("votesByPollingStations")]
+        [HttpGet("votesByPollingStation")]
         public IActionResult GetByPollingStation([FromQuery] long electionsId, [FromQuery] long categoryId, [FromQuery] long pollingStationId)
         {
             List<GlasoviKandidat> votes = _service.GetVotesByPoolingStation(electionsId, categoryId, pollingStationId);
@@ -66,6 +66,13 @@ namespace Stranka.Controllers
         public IActionResult GetByCandidate([FromQuery] long electionsId, [FromQuery] long categoryId, [FromQuery] long candidateId)
         {
             List<GlasoviKandidat> votes = _service.GetVotesByCandidate(electionsId, categoryId, candidateId);
+            return Ok(votes);
+        }
+
+        [HttpGet("votesById")]
+        public IActionResult GetById([FromQuery] long id)
+        {
+            GlasoviKandidat votes = _service.GetVotesById(id);
             return Ok(votes);
         }
 

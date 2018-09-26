@@ -210,7 +210,34 @@ namespace Stranka.Services.Implementations
             {
                 throw ex;
             }
+        }
 
+
+        public GlasoviKandidat GetVotesById(long id)
+        {
+            try
+            {
+                string connectionString = ConnectionStringHelper.GetConnectionString(_configuration);
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        ExecutorService repository = new ExecutorService(connection, transaction);
+                        List<SqlParameter> parameters = new List<SqlParameter>();
+                        repository.AddParameterInList("@Id", id, SqlDbType.BigInt, ref parameters);
+                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_CANDIDATES_VOTES_BY_ID, parameters);
+                        List<GlasoviKandidat> votes = DataReaderConverter.ToList<GlasoviKandidat>(dataReader);
+                        dataReader.Close();
+                        transaction.Commit();
+                        return votes[0];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void UpdateVotesOfCandidate(GlasoviKandidat votes)
@@ -226,7 +253,7 @@ namespace Stranka.Services.Implementations
                         ExecutorService repository = new ExecutorService(connection, transaction);
                         List<SqlParameter> parameters = new List<SqlParameter>();
                         repository.AddParameterInList("@Id", votes.id, SqlDbType.BigInt, ref parameters);
-                        repository.AddParameterInList("@BrojGlasova", votes.kandidatId, SqlDbType.Int, ref parameters);
+                        repository.AddParameterInList("@BrojGlasova", votes.brojGlasova, SqlDbType.Int, ref parameters);
                         SqlDataReader dataReader = repository.ExecuteProcedure(Constants.UPDATE_NUMBER_OF_VOTES_CANDIDATE, parameters);
                         dataReader.Close();
                         transaction.Commit();

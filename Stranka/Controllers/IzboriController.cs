@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stranka.Services.Common;
@@ -31,12 +32,13 @@ namespace Stranka.Controllers
         [HttpPost()]
         public IActionResult Post([FromBody] Izbori elections)
         {
+            elections.datumOdrzavanja = DateTime.Now;
             long insertedId = _service.AddElections(elections);
             return Ok(insertedId);
         }
 
-        [HttpGet("categories")]
-        public IActionResult GetCategories([FromQuery] long electionsId)
+        [HttpGet("kategorije/{electionsId}")]
+        public IActionResult GetCategories(long electionsId)
         {
             List<Kategorija> categories = _service.GetCategoriesForElections(electionsId);
             return Ok(categories);
