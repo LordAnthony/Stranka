@@ -44,7 +44,7 @@ namespace Stranka.Controllers
         [HttpPut()]
         public IActionResult Put([FromBody] Kandidat candidate)
         {
-           _service.UpdateCandidate(candidate);
+            _service.UpdateCandidate(candidate);
             return Ok();
         }
 
@@ -63,9 +63,9 @@ namespace Stranka.Controllers
         }
 
         [HttpGet("votesByCandidate")]
-        public IActionResult GetByCandidate([FromQuery] long electionsId, [FromQuery] long candidateId, )
+        public IActionResult GetByCandidate([FromQuery] long electionsId, [FromQuery] long categoryId, [FromQuery] long candidateId)
         {
-            List<GlasoviKandidat> votes = _service.GetVotesByCandidate(electionsId, candidateId);
+            List<GlasoviKandidat> votes = _service.GetVotesByCandidate(electionsId, categoryId, candidateId);
             return Ok(votes);
         }
 
