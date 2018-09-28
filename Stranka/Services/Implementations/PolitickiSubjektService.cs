@@ -212,6 +212,33 @@ namespace Stranka.Services.Implementations
             }
         }
 
+        public GlasoviPolitickiSubjekt GetVotesById(long id)
+        {
+            try
+            {
+                string connectionString = ConnectionStringHelper.GetConnectionString(_configuration);
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        ExecutorService repository = new ExecutorService(connection, transaction);
+                        List<SqlParameter> parameters = new List<SqlParameter>();
+                        repository.AddParameterInList("@Id", id, SqlDbType.BigInt, ref parameters);
+                        SqlDataReader dataReader = repository.ExecuteProcedure(Constants.GET_POLITICALSUBJECTS_VOTES_BY_ID, parameters);
+                        List<GlasoviPolitickiSubjekt> votes = DataReaderConverter.ToList<GlasoviPolitickiSubjekt>(dataReader);
+                        dataReader.Close();
+                        transaction.Commit();
+                        return votes[0];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void UpdateVotesOfPoliticalSubject(GlasoviPolitickiSubjekt votes)
         {
             try

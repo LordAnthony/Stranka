@@ -69,6 +69,13 @@ namespace Stranka.Controllers
             return Ok(votes);
         }
 
+        [HttpGet("votesById")]
+        public IActionResult GetById([FromQuery] long id)
+        {
+            GlasoviPolitickiSubjekt votes = _service.GetVotesById(id);
+            return Ok(votes);
+        }
+
         [HttpPut("votes")]
         public IActionResult Put([FromBody] GlasoviPolitickiSubjekt votes)
         {

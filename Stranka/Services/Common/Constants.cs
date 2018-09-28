@@ -22,6 +22,7 @@ namespace Stranka.Services.Common
         public const string DELETE_POLITICALSUBJECT = "DeletePoliticalSubject";
         public const string GET_POLITICALSUBJECTS_VOTES_BY_CATEGORY_AND_POLLINGSTATION = "SelectPoliticalSubjectsVotesByCategoryAndPollingStation";
         public const string GET_POLITICALSUBJECT_VOTES_BY_CATEGORY = "SelectPoliticalSubjectVotesByCategory";
+        public const string GET_POLITICALSUBJECTS_VOTES_BY_ID = "SelectPoliticalSubjectsVotesById";
         public const string UPDATE_NUMBER_OF_VOTES_POLITICALSUBJECT = "UpdateVotesPoliticalSubject";
         public const string GET_CANDIDATES_VOTES_BY_POLLINGSTATION = "SelectCandidatesVotesByPollingStation";
         public const string GET_CANDIDATE_VOTES = "SelectCandidateVotes";
